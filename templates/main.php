@@ -1,12 +1,8 @@
-<?php
-require_once('helpers.php');
-?>
-
 <section class="promo">
   <h2 class="promo__title">Нужен стафф для катки?</h2>
   <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
   <ul class="promo__list">
-    <?php foreach ($categories as $key => $value) : ?>
+    <?php foreach($categories as $key => $value) : ?>
       <li class="promo__item promo__item--<?= $key; ?>">
         <a class="promo__link" href="pages/all-lots.html"><?= $value; ?></a>
       </li>
@@ -18,7 +14,7 @@ require_once('helpers.php');
     <h2>Открытые лоты</h2>
   </div>
   <ul class="lots__list">
-    <?php foreach ($offers as $offer) : ?>
+    <?php foreach($offers as $offer) : ?>
       <li class="lots__item lot">
         <div class="lot__image">
           <img src="<?= $offer["img_url"]; ?>" width="350" height="260" alt="<?= htmlspecialchars($offer["title"]); ?>">
@@ -32,7 +28,7 @@ require_once('helpers.php');
               <span class="lot__cost"><?= format_price(htmlspecialchars($offer["price"])); ?></span>
             </div>
             <?php [$hour, $minutes] = get_dt_range(htmlspecialchars($offer["expiration"])); ?>
-            <div class="lot__timer timer <?php if ($hour < 1): ?>timer--finishing<?php endif; ?>">
+            <div class="lot__timer timer <?php if($hour < 1): ?>timer--finishing<?php endif; ?>">
               <?= "$hour:$minutes" ?>
             </div>
           </div>
