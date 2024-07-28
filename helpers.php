@@ -148,7 +148,7 @@ function format_price(int $price): string {
     return number_format($rounded_price, 0, '.', ' ') . ' ' . '₽';
 }
 
-function get_dt_range(string $date, string $timezone = 'Asia/Yekaterinburg'): array {
+function get_expiration_range(string $date, string $timezone = 'Asia/Yekaterinburg'): array {
     date_default_timezone_set($timezone);
     $date_time = date_create($date);
     $date_now = date_create();
@@ -156,5 +156,6 @@ function get_dt_range(string $date, string $timezone = 'Asia/Yekaterinburg'): ar
     $intervals = explode(',', $interval);
     $hours = str_pad($intervals[1] * 24 + $intervals[2], 2, '0', STR_PAD_LEFT);
     $minutes = $intervals[3];
+    
     return [$hours, $minutes];
 }
