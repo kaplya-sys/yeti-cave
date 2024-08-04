@@ -48,7 +48,7 @@ INSERT bets(
     (1200, 2, 1),
     (9400, 3, 5);
 
-SELECT category_name AS 'categories' FROM categories;
+SELECT character_code, category_name AS 'categories' FROM categories;
 
 SELECT o.title, o.img, o.price_num, c.category_name AS 'category'
   FROM offers AS o
@@ -62,7 +62,7 @@ SELECT o.offer_id, o.title, o.description, o.img, o.price_num, o.expiration_date
   ON o.category_id = c.category_id
   WHERE o.offer_id = 1;
 
-SELECT b.id, b.bet_num, b.published_date, o.title, u.user_name
+SELECT b.bet_id, b.bet_num, b.published_date, o.title, u.user_name
   FROM bets AS b
   JOIN offers AS o
   ON b.offer_id = o.offer_id

@@ -2,15 +2,15 @@
 $is_auth = rand(0, 1);
 $user_name = 'Руслан';
 $page_title = 'Главная';
-$categories = [
+/*$categories = [
     'boards' => 'Доски и лыжи',
     'attachment' => 'Крепления',
     'boots' => 'Ботинки',
     'clothing' => 'Одежда',
     'tools' => 'Инструменты',
     'other' => 'Разное'
-];
-$offers =[
+];*/
+/*$offers =[
     [
         'category' => $categories['boards'],
         'title' => '2014 Rossignol District Snowboard',
@@ -53,5 +53,5 @@ $offers =[
         'expiration' => '2024-08-06',
         'img_url' => 'img/lot-6.jpg'
     ]
-];
+];*/
 ?>
