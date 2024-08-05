@@ -1,35 +1,39 @@
 <?php
+require_once('init.php');
+require_once('models.php');
 require_once('helpers.php');
 require_once('data.php');
 
-$mysqli = mysqli_connect('MySQL-8.2', 'root', '', 'yeti_cave');
 
-if(!$mysqli) {
-  print(mysqli_connect_error());
+if(!$link) {
+  die(mysqli_connect_error());
 }
 
-$query_categories = "SELECT character_code AS 'key', category_name AS 'value' FROM categories";
-$query_offers = "SELECT o.title, o.img AS 'img_url', o.price_num AS 'price', o.expiration_date AS 'expiration', c.category_name AS 'category'
-  FROM offers AS o
-  JOIN categories AS c
-  ON o.category_id = c.category_id
-  WHERE expiration_date >= NOW()";
+$query = $get_query_categories();
+$result = mysqli_query($link, $query);
 
-$sql_categories = mysqli_query($mysqli, $query_categories);
-$sql_offers = mysqli_query($mysqli, $query_offers);
-
-if(!$sql_categories or !$sql_offers) {
-  print(mysqli_error($mysqli));
+if(!$result) {
+  die(mysqli_error($link));
 }
 
-$categories = mysqli_fetch_all($sql_categories, MYSQLI_ASSOC);
-$offers = mysqli_fetch_all($sql_offers, MYSQLI_ASSOC);
+$categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 foreach($categories as $index => $item) {
   $categories[$item['key']] = $item['value'];
   unset($categories[$index]);
 }
 
+$query = $get_query_offers();
+$stmt = mysqli_prepare($link, $query);
+mysqli_stmt_bind_param($stmt, 'i', $offer_count);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+if(!$result) {
+  die(mysqli_error($link));
+}
+
+$offers = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $main_content = include_template(
   'main.php',
   [
