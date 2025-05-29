@@ -1,6 +1,6 @@
 'use strict';
 
-flatpickr('#lot-date', {
+flatpickr('#date-fp', {
   enableTime: false,
   dateFormat: "Y-m-d",
   locale: "ru"

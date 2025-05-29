@@ -5,25 +5,23 @@ require_once('helpers/sql-helpers.php');
 require_once('helpers/common-helpers.php');
 require_once('helpers/date-helpers.php');
 require_once('constant.php');
-require_once('add-winner.php');
 
 session_start();
 
 if(!$link) {
-  throw new Error(mysqli_connect_error());
+	throw new Error(mysqli_connect_error());
 }
 
 $query_categories = $get_query_categories();
 $categories = get_categories($link, $query_categories);
+$query_beats = $get_query_bets_by_user_id();
+$user_bets = get_mysqli_select_stmt_result($link, $query_beats, [$_SESSION['user_id']]);
 
-$query_lots = $get_query_lots();
-$lots = get_mysqli_select_stmt_result($link, $query_lots, [null]);
-
-$main_content = include_template(
-  'main.template.php',
+$bets_content = include_template(
+  'my-bets.template.php',
   [
-    'categories' => $categories,
-    'lots' => $lots
+    'bets' => $user_bets,
+    'bet_win' => false
   ]
 );
 $navigation_content = include_template(
@@ -33,9 +31,9 @@ $navigation_content = include_template(
 $layout_content = include_template(
   'layout.template.php',
   [
-    'title' => $page_title['main'],
-    'is_home' => true,
-    'content' => $main_content,
+    'title' => $page_title['bets'],
+    'is_home' => false,
+    'content' => $bets_content,
     'navigation' => $navigation_content
   ]
 );

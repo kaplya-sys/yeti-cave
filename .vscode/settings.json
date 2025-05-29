@@ -6,7 +6,7 @@
         "enableSsl": "Disabled"
       },
       "previewLimit": 50,
-      "server": "MySQL-8.2",
+      "server": "MySQL-8.4",
       "port": 3306,
       "driver": "MySQL",
       "name": "yeticave",
